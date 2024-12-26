@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Rescue Map</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #007BFF;
+        }
+
+        .info-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .info-container p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            gap: 2px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cell {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .cell.empty {
+            background-color: #e0e0e0;
+        }
+
+        .cell.danger {
+            background-color: #ff5733;
+            color: white;
+        }
+
+        .cell.survivor {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .cell.robot {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .cell.recharge {
+            background-color: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rescue Robot Simulation</h1>
+
+    <div class="info-container">
+        <p><strong>Survivors Rescued:</strong> {{ survivors }}</p>
+        <p><strong>Path Taken:</strong> {{ path }}</p>
+    </div>
+
+    <div class="grid-container">
+        {% for row in grid %}
+            {% for cell in row %}
+                <div class="cell {% if cell == 'S' %}survivor{% elif cell == 'D' %}danger{% elif cell == 'R' %}recharge{% elif cell == 'R' %}robot{% else %}empty{% endif %}">
+                    {% if cell == 'S' %}S{% elif cell == 'D' %}D{% elif cell == 'R' %}R{% else %}{% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>
